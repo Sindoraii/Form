@@ -2,10 +2,9 @@ import ViewManager from "./ViewManager";
 
 class Form {
     constructor(entity,isEdit) {
-        this.entity = entity;
+        this.entity = JSON.parse(JSON.stringify(entity));
         this.isEdit = isEdit;
         this.elem = document.createElement('div');
-
         this.elem.classList.add('form');
     }
 
@@ -22,8 +21,5 @@ class Form {
     unmount() {
         this.elem.remove();
     }
-
-
 }
-
 export default Form;

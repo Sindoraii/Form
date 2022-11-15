@@ -1,9 +1,7 @@
 class ReviewView {
-    constructor(entity) {
+    constructor(entity,updateMode) {
         this.entity = entity;
-
         this.type = 'review';
-
         this.elem = document.createElement('form');
         this.elem.classList.add('review-view');
 
@@ -51,11 +49,17 @@ class ReviewView {
         this.surnameInfo.id ='userSurname';
         this.surnameInfo.value = this.entity.surname;
 
+        /* BUTTONS */
+        /* edit button */
+        this.editModeButton = document.createElement('button');
+        this.editModeButton.setAttribute('type','button');
+        this.editModeButton.innerHTML = 'Edit form';
+        this.editModeButton.addEventListener('click',()=> updateMode('edit'))
 
-
-        /* append form title and contact info*/
+        /* append form title,common buttons  and contact info */
         this.elem.append(this.mainTitle);
         this.elem.append(this.info);
+        this.elem.append(this.editModeButton);
         this.info.append(this.fielsetInfo);
         this.fielsetInfo.append(this.titleInfo);
         this.fielsetInfo.append(this.nameInfoWrapper);
@@ -64,7 +68,6 @@ class ReviewView {
         this.fielsetInfo.append(this.surnameInfoWrapper);
         this.surnameInfoWrapper.append(this.surnameInfoLabel);
         this.surnameInfoWrapper.append(this.surnameInfo);
-
     }
 
 

@@ -8,32 +8,18 @@ class ViewManager {
         this.isEdit = isEdit;
         this.parent = parent;
         this.currentView;
+        this.mode = '';
     }
 
-    #checkCurrentView() {
-        switch (this.mode) {
-            case 'new':
-                if(this.currentView.type === 'new') {
-                    if(this.currentView.type)
-                    this.currentView.unmount();
-                    this.currentView = new NewView();
-                }
-                break;
-            case 'review':
-                if(this.currentView.type === 'review') {
-                    this.currentView.unmount();
-                    this.currentView = new ReviewView(this.entity);
-                }
-                break;
-            case 'edit':
-                if(this.currentView.type === 'edit') {
-                    this.currentView.unmount();
-                    this.currentView = new EditView(this.entity);
-                }
-                break;
-            default:
-                this.currentView = new NewView();
-                break;
+
+    #updateViewMode(mode) {
+        if(mode === 'edit') {
+            this.mode = mode;
+            this.currentView.unmount();
+            this.currentView = new EditView(this.entity);
+            this.currentView.mount(this.parent);
+        } else {
+            throw new Error('mode is incorrect');
         }
     }
 
@@ -42,7 +28,7 @@ class ViewManager {
             this.currentView = new NewView();
         } else {
             if(!this.isEdit) {
-                this.currentView = new ReviewView(this.entity);
+                this.currentView = new ReviewView(this.entity,this.#updateViewMode.bind(this));
             } else {
                 this.currentView = new EditView(this.entity);
             }
@@ -50,7 +36,6 @@ class ViewManager {
     }
 
     getView() {
-        // this.#checkCurrentView();
         this.#setCurrentView();
         if(this.currentView === undefined) {
             throw new Error('View is undefined');
