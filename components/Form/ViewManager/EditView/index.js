@@ -1,22 +1,24 @@
-class NewView {
-    constructor() {
-        this.elem =  document.createElement('form');
-        this.type = 'new';
+class EditView {
+    constructor(entity) {
+        this.entity = entity;
+        this.type = 'edit';
+        this.elem = document.createElement('form');
+        this.elem.classList.add('edit-view');
 
         /* form */
-        this.elem.classList.add('form__new-view','new-view');
+        this.elem.classList.add('form__edit-view', 'edit-view');
         this.elem.noValidate = true;
-        this.elem.setAttribute('action','#');
+        this.elem.setAttribute('action', '#');
         /* form elements */
         this.mainTitle = document.createElement('h1');
-        this.mainTitle.classList.add('new-view__title');
+        this.mainTitle.classList.add('edit-view__title');
         this.mainTitle.innerHTML = 'Client form';
         this.info = document.createElement('section');
-        this.info.classList.add('new-view__wrapper');
+        this.info.classList.add('edit-view__wrapper');
 
         /* fields of contact information */
         this.fielsetInfo = document.createElement('fieldset');
-        this.fielsetInfo.classList.add('new-view__userInfo','userInfo');
+        this.fielsetInfo.classList.add('edit-view__userInfo', 'userInfo');
         this.titleInfo = document.createElement('h2');
         this.titleInfo.classList.add('userInfo__title');
         this.titleInfo.innerHTML = 'Contact information';
@@ -27,23 +29,24 @@ class NewView {
         this.nameInfoWrapper.classList.add('error-wrapper');
         /* name */
         this.nameInfoLabel = document.createElement('label');
-        this.nameInfoLabel.setAttribute('for','userName');
+        this.nameInfoLabel.setAttribute('for', 'userName');
         this.nameInfoLabel.innerHTML = 'Name:'
         this.nameInfo = document.createElement('input');
-        this.nameInfo.setAttribute('type','text');
-        this.nameInfo.id ='userName';
+        this.nameInfo.setAttribute('type', 'text');
+        this.nameInfo.id = 'userName';
+        this.nameInfo.value = this.entity.name;
 
         /* wrapper for surname info */
         this.surnameInfoWrapper = document.createElement('article');
         this.surnameInfoWrapper.classList.add('error-wrapper');
         /* surname */
         this.surnameInfoLabel = document.createElement('label');
-        this.surnameInfoLabel.setAttribute('for','userSurname');
+        this.surnameInfoLabel.setAttribute('for', 'userSurname');
         this.surnameInfoLabel.innerHTML = 'Surname:'
         this.surnameInfo = document.createElement('input');
-        this.surnameInfo.setAttribute('type','text');
-        this.surnameInfo.id ='userSurname';
-
+        this.surnameInfo.setAttribute('type', 'text');
+        this.surnameInfo.id = 'userSurname';
+        this.surnameInfo.value = this.entity.surname;
 
         /* append form title and contact info*/
         this.elem.append(this.mainTitle);
@@ -56,8 +59,8 @@ class NewView {
         this.fielsetInfo.append(this.surnameInfoWrapper);
         this.surnameInfoWrapper.append(this.surnameInfoLabel);
         this.surnameInfoWrapper.append(this.surnameInfo);
-
     }
+
 
     mount(parent) {
         if(parent instanceof HTMLElement) {
@@ -71,4 +74,4 @@ class NewView {
         this.elem.remove();
     }
 }
-export default NewView;
+export default EditView;

@@ -1,9 +1,9 @@
 import ViewManager from "./ViewManager";
 
 class Form {
-    constructor(entity,mode) {
+    constructor(entity,isEdit) {
         this.entity = entity;
-        this.mode = mode;  // mode: 'new','edit','review'
+        this.isEdit = isEdit;
         this.elem = document.createElement('div');
 
         this.elem.classList.add('form');
@@ -11,7 +11,7 @@ class Form {
 
     mount(parent) {
         if(parent instanceof HTMLElement) {
-            const viewManager = new ViewManager(this.entity,this.mode,this.elem);
+            const viewManager = new ViewManager(this.entity,this.isEdit,this.elem);
             viewManager.getView();
             parent.append(this.elem);
         } else {

@@ -1,22 +1,27 @@
-class NewView {
-    constructor() {
-        this.elem =  document.createElement('form');
-        this.type = 'new';
+class ReviewView {
+    constructor(entity) {
+        this.entity = entity;
+
+        this.type = 'review';
+
+        this.elem = document.createElement('form');
+        this.elem.classList.add('review-view');
 
         /* form */
-        this.elem.classList.add('form__new-view','new-view');
+        this.elem.classList.add('form__review-view','review-view');
         this.elem.noValidate = true;
         this.elem.setAttribute('action','#');
         /* form elements */
         this.mainTitle = document.createElement('h1');
-        this.mainTitle.classList.add('new-view__title');
+        this.mainTitle.classList.add('review-view__title');
         this.mainTitle.innerHTML = 'Client form';
         this.info = document.createElement('section');
-        this.info.classList.add('new-view__wrapper');
+        this.info.classList.add('review-view__wrapper');
 
         /* fields of contact information */
         this.fielsetInfo = document.createElement('fieldset');
-        this.fielsetInfo.classList.add('new-view__userInfo','userInfo');
+        this.fielsetInfo.classList.add('review-view__userInfo','userInfo');
+        this.fielsetInfo.disabled = true;
         this.titleInfo = document.createElement('h2');
         this.titleInfo.classList.add('userInfo__title');
         this.titleInfo.innerHTML = 'Contact information';
@@ -32,6 +37,7 @@ class NewView {
         this.nameInfo = document.createElement('input');
         this.nameInfo.setAttribute('type','text');
         this.nameInfo.id ='userName';
+        this.nameInfo.value = this.entity.name;
 
         /* wrapper for surname info */
         this.surnameInfoWrapper = document.createElement('article');
@@ -43,6 +49,8 @@ class NewView {
         this.surnameInfo = document.createElement('input');
         this.surnameInfo.setAttribute('type','text');
         this.surnameInfo.id ='userSurname';
+        this.surnameInfo.value = this.entity.surname;
+
 
 
         /* append form title and contact info*/
@@ -59,6 +67,7 @@ class NewView {
 
     }
 
+
     mount(parent) {
         if(parent instanceof HTMLElement) {
             parent.append(this.elem);
@@ -71,4 +80,4 @@ class NewView {
         this.elem.remove();
     }
 }
-export default NewView;
+export default ReviewView;
