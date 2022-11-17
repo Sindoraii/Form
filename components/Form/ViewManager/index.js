@@ -44,6 +44,5 @@ class ViewManager {
             this.currentView.mount(this.parent);
         }
     }
-
 }
 export default ViewManager;
