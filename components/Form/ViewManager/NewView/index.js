@@ -1,8 +1,8 @@
 class NewView {
-    constructor() {
+    constructor(sendRequest) {
+        this.sendRequest = sendRequest;
         this.elem =  document.createElement('form');
         this.type = 'new';
-
         /* form */
         this.elem.classList.add('form__new-view','new-view');
         this.elem.noValidate = true;
@@ -32,7 +32,6 @@ class NewView {
         this.nameInfo = document.createElement('input');
         this.nameInfo.setAttribute('type','text');
         this.nameInfo.id ='userName';
-
         /* wrapper for surname info */
         this.surnameInfoWrapper = document.createElement('article');
         this.surnameInfoWrapper.classList.add('error-wrapper');
@@ -43,6 +42,17 @@ class NewView {
         this.surnameInfo = document.createElement('input');
         this.surnameInfo.setAttribute('type','text');
         this.surnameInfo.id ='userSurname';
+
+        /* BUTTONS */
+        this.submitButton = document.createElement('button');
+        this.submitButton.innerHTML = 'Submit';
+        this.submitButton.setAttribute('type','submit');
+
+        /* EVENTS */
+        this.submitButton.addEventListener('click',()=> {
+            const data = this.#getDataFromInputs();
+            this.sendRequest(data);
+        })
 
 
         /* append form title and contact info*/
@@ -56,7 +66,15 @@ class NewView {
         this.fielsetInfo.append(this.surnameInfoWrapper);
         this.surnameInfoWrapper.append(this.surnameInfoLabel);
         this.surnameInfoWrapper.append(this.surnameInfo);
+        /* append common */
+        this.elem.append(this.submitButton);
+    }
 
+    #getDataFromInputs() {
+        return {
+            name: this.nameInfo.value,
+            surname: this.surnameInfo.value,
+        }
     }
 
     mount(parent) {

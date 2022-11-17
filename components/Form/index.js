@@ -1,4 +1,5 @@
 import ViewManager from "./ViewManager";
+import RequestManager from "./RequestManager";
 
 class Form {
     constructor(entity,isEdit) {
@@ -6,11 +7,12 @@ class Form {
         this.isEdit = isEdit;
         this.elem = document.createElement('div');
         this.elem.classList.add('form');
+        this.requestManager = new RequestManager();
     }
 
     mount(parent) {
         if(parent instanceof HTMLElement) {
-            const viewManager = new ViewManager(this.entity,this.isEdit,this.elem);
+            const viewManager = new ViewManager(this.entity,this.isEdit,this.elem,this.requestManager.sendRequest.bind(this));
             viewManager.getView();
             parent.append(this.elem);
         } else {

@@ -1,6 +1,7 @@
 class EditView {
-    constructor(entity) {
+    constructor(entity,sendRequest) {
         this.entity = entity;
+        this.sendRequest = sendRequest;
         this.type = 'edit';
         this.elem = document.createElement('form');
         this.elem.classList.add('edit-view');
@@ -35,7 +36,6 @@ class EditView {
         this.nameInfo.setAttribute('type', 'text');
         this.nameInfo.id = 'userName';
         this.nameInfo.value = this.entity.name;
-
         /* wrapper for surname info */
         this.surnameInfoWrapper = document.createElement('article');
         this.surnameInfoWrapper.classList.add('error-wrapper');
@@ -48,6 +48,17 @@ class EditView {
         this.surnameInfo.id = 'userSurname';
         this.surnameInfo.value = this.entity.surname;
 
+        /* BUTTONS */
+        this.submitButton = document.createElement('button');
+        this.submitButton.innerHTML = 'Submit';
+        this.submitButton.setAttribute('type','submit');
+
+        /* EVENTS */
+        this.submitButton.addEventListener('click',()=> {
+            const data = this.#getDataFromInputs();
+            this.sendRequest(data);
+        })
+
         /* append form title and contact info*/
         this.elem.append(this.mainTitle);
         this.elem.append(this.info);
@@ -59,8 +70,18 @@ class EditView {
         this.fielsetInfo.append(this.surnameInfoWrapper);
         this.surnameInfoWrapper.append(this.surnameInfoLabel);
         this.surnameInfoWrapper.append(this.surnameInfo);
+
+        /* append common */
+        this.elem.append(this.submitButton);
     }
 
+
+    #getDataFromInputs() {
+        return {
+            name: this.nameInfo.value,
+            surname: this.surnameInfo.value,
+        }
+    }
 
     mount(parent) {
         if(parent instanceof HTMLElement) {

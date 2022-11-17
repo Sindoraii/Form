@@ -3,10 +3,11 @@ import ReviewView from "./ReviewView";
 import NewView from "./NewView";
 
 class ViewManager {
-    constructor(entity,isEdit,parent) {
+    constructor(entity,isEdit,parent,sendRequest) {
         this.entity = entity;
         this.isEdit = isEdit;
         this.parent = parent;
+        this.sendRequest = sendRequest;
         this.currentView;
         this.mode = '';
     }
@@ -16,7 +17,7 @@ class ViewManager {
         if(mode === 'edit') {
             this.mode = mode;
             this.currentView.unmount();
-            this.currentView = new EditView(this.entity);
+            this.currentView = new EditView(this.entity,this.sendRequest);
             this.currentView.mount(this.parent);
         } else {
             throw new Error('mode is incorrect');
@@ -25,12 +26,12 @@ class ViewManager {
 
     #setCurrentView() {
         if(Object.keys(this.entity).length === 0) {
-            this.currentView = new NewView();
+            this.currentView = new NewView(this.sendRequest);
         } else {
             if(!this.isEdit) {
                 this.currentView = new ReviewView(this.entity,this.#updateViewMode.bind(this));
             } else {
-                this.currentView = new EditView(this.entity);
+                this.currentView = new EditView(this.entity,this.sendRequest);
             }
         }
     }
