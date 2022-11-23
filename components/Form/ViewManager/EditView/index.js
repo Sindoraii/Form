@@ -30,22 +30,22 @@ class EditView {
         this.nameInfoWrapper.classList.add('error-wrapper');
         /* name */
         this.nameInfoLabel = document.createElement('label');
-        this.nameInfoLabel.setAttribute('for', 'userName');
+        this.nameInfoLabel.setAttribute('for', 'name');
         this.nameInfoLabel.innerHTML = 'Name:'
         this.nameInfo = document.createElement('input');
         this.nameInfo.setAttribute('type', 'text');
-        this.nameInfo.id = 'userName';
+        this.nameInfo.id = 'name';
         this.nameInfo.value = this.entity.name;
         /* wrapper for surname info */
         this.surnameInfoWrapper = document.createElement('article');
         this.surnameInfoWrapper.classList.add('error-wrapper');
         /* surname */
         this.surnameInfoLabel = document.createElement('label');
-        this.surnameInfoLabel.setAttribute('for', 'userSurname');
+        this.surnameInfoLabel.setAttribute('for', 'surname');
         this.surnameInfoLabel.innerHTML = 'Surname:'
         this.surnameInfo = document.createElement('input');
         this.surnameInfo.setAttribute('type', 'text');
-        this.surnameInfo.id = 'userSurname';
+        this.surnameInfo.id = 'surname';
         this.surnameInfo.value = this.entity.surname;
 
         /* BUTTONS */
@@ -56,7 +56,13 @@ class EditView {
         /* EVENTS */
         this.submitButton.addEventListener('click',()=> {
             const data = this.#getDataFromInputs();
-            this.sendRequest(data);
+            const errorsArr = this.sendRequest(data);
+            if(errorsArr.length !== 0) {
+                /* creating view of error */
+                this.#showError(errorsArr);
+            } else {
+                this.#deleteErrors();
+            }
         })
 
         /* append form title and contact info*/
@@ -81,6 +87,28 @@ class EditView {
             name: this.nameInfo.value,
             surname: this.surnameInfo.value,
         }
+    }
+
+    #showError(errors) { // type: array
+        errors.forEach((error)=> {
+            const input = document.querySelector(`#${error.field}`);
+            if(input === undefined) {
+                throw new Error('Input is not founded');
+            } else {
+                input.parentNode.setAttribute('data-error',error.message);
+                input.classList.add('invalid');
+            }
+        })
+    }
+
+    #deleteErrors() {
+        const wrappersError = this.info.querySelectorAll('.error-wrapper');
+        wrappersError.forEach((wrapper)=> {
+            if(wrapper.getAttribute('data-error') !== null) {
+                wrapper.setAttribute('data-error',' ');
+                wrapper.children[1].classList.remove('invalid');
+            }
+        })
     }
 
     mount(parent) {
