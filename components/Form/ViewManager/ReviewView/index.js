@@ -54,7 +54,7 @@ class ReviewView {
         this.editModeButton = document.createElement('button');
         this.editModeButton.setAttribute('type','button');
         this.editModeButton.innerHTML = 'Edit form';
-        this.editModeButton.addEventListener('click',()=> updateMode('edit'))
+        this.editModeButton.addEventListener('click', updateMode);
 
         /* append form title,common buttons  and contact info */
         this.elem.append(this.mainTitle);

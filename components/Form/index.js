@@ -8,12 +8,12 @@ class Form {
         this.elem = document.createElement('div');
         this.elem.classList.add('form');
         this.requestManager = new RequestManager();
+        this.viewManager = new ViewManager(this.entity,this.isEdit,this.elem,this.requestManager.sendRequest.bind(this));
     }
 
     mount(parent) {
         if(parent instanceof HTMLElement) {
-            const viewManager = new ViewManager(this.entity,this.isEdit,this.elem,this.requestManager.sendRequest.bind(this));
-            viewManager.getView();
+            this.viewManager.initView();
             parent.append(this.elem);
         } else {
             throw new Error("Form: type of parent is`t correct");

@@ -5,7 +5,6 @@ class Validator {
         this.entity = entity;
     }
 
-
     #check(fieldName,fieldValue) {
         switch (fieldName) {
             case 'name':
