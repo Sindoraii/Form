@@ -1,9 +1,17 @@
 /* import */
 import Form from "./components/Form";
 
-/* init */
 const root = document.getElementById('root');
-/* data for showing NewView */
-const FormComponent = new Form({},false);
 
+/* stub data */
+let entity = {
+    name: 'Names',
+    surname: 'Surnameees',
+    email: 'emailsdsk@gmail.com',
+    dateOfBirth: '1994-02-13',
+    cardNumber: '7777 7777 7777 7777',
+    cardExpiration: '2028-02',
+    cardCvc: '123',
+}
+const FormComponent = new Form(entity,false);
 FormComponent.mount(root);
