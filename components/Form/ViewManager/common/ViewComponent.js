@@ -11,8 +11,7 @@ class ViewComponent {
         const mainTitle = document.createElement('h1');
         mainTitle.classList.add('form__title');
         mainTitle.innerHTML = 'Client form';
-        const info = document.createElement('section');
-        info.classList.add('form__wrapper');
+
 
         /* FIELSETS */
         /* fieldset of contact information */
@@ -70,7 +69,7 @@ class ViewComponent {
         /* date of birth */
         const dateOfBirthInfoLabel = document.createElement('label');
         dateOfBirthInfoLabel.setAttribute('for', 'dateOfBirth');
-        dateOfBirthInfoLabel.innerHTML = 'Date of birth:'
+        dateOfBirthInfoLabel.innerHTML = 'Birthday:'
         const dateOfBirthInfo = document.createElement('input');
         dateOfBirthInfo.setAttribute('type', 'date');
         dateOfBirthInfo.id = 'dateOfBirth';
@@ -82,7 +81,7 @@ class ViewComponent {
         /* card number */
         const cardNumberInfoLabel = document.createElement('label');
         cardNumberInfoLabel.setAttribute('for', 'cardNumber');
-        cardNumberInfoLabel.innerHTML = 'Card number:';
+        cardNumberInfoLabel.innerHTML = 'Card:';
         const cardNumberInfo = document.createElement('input');
         cardNumberInfo.setAttribute('type', 'text');
         cardNumberInfo.id = 'cardNumber';
@@ -92,8 +91,8 @@ class ViewComponent {
         cardExpirationInfoWrapper.classList.add('error-wrapper');
         /* expiration card */
         const cardExpirationInfoLabel = document.createElement('label');
-        cardExpirationInfoLabel.setAttribute('for', 'cardNumber');
-        cardExpirationInfoLabel.innerHTML = 'Expiration month and year:';
+        cardExpirationInfoLabel.setAttribute('for', 'cardExpiration');
+        cardExpirationInfoLabel.innerHTML = 'Expiration:';
         const cardExpirationInfo = document.createElement('input');
         cardExpirationInfo.setAttribute('type', 'month');
         cardExpirationInfo.min = `${new Date().getFullYear()}-${new Date().getMonth()}`;
@@ -130,8 +129,7 @@ class ViewComponent {
 
         /* append form title and contact info*/
         this.elem.append(mainTitle);
-        this.elem.append(info);
-        info.append(fielsetInfo);
+        this.elem.append(fielsetInfo);
         fielsetInfo.append(titleInfo);
         fielsetInfo.append(nameInfoWrapper);
         nameInfoWrapper.append(nameInfoLabel);
@@ -148,12 +146,17 @@ class ViewComponent {
         /* append card info */
         this.elem.append(fielsetCardInfo);
         fielsetCardInfo.append(titleCardInfo);
-        fielsetCardInfo.append(cardNumberInfoLabel);
-        fielsetCardInfo.append(cardNumberInfo);
-        fielsetCardInfo.append(cardExpirationInfoLabel);
-        fielsetCardInfo.append(cardExpirationInfo);
-        fielsetCardInfo.append(cardCvcInfoLabel);
-        fielsetCardInfo.append(cardCvcInfo);
+        fielsetCardInfo.append(cardNumberInfoWrapper);
+        cardNumberInfoWrapper.append(cardNumberInfoLabel);
+        cardNumberInfoWrapper.append(cardNumberInfo);
+
+        fielsetCardInfo.append(cardExpirationInfoWrapper);
+        cardExpirationInfoWrapper.append(cardExpirationInfoLabel);
+        cardExpirationInfoWrapper.append(cardExpirationInfo);
+
+        fielsetCardInfo.append(cardCvcInfoWrapper);
+        cardCvcInfoWrapper.append(cardCvcInfoLabel);
+        cardCvcInfoWrapper.append(cardCvcInfo);
         /* append common */
         this.elem.append(submitButton);
     }
