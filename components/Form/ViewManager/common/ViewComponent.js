@@ -5,7 +5,6 @@ class ViewComponent {
         this.elem =  document.createElement('form');
         this.elem.classList.add('form');
         this.elem.noValidate = true;
-        this.elem.setAttribute('action', '#');
 
         /* form elements */
         const mainTitle = document.createElement('h1');
@@ -118,7 +117,8 @@ class ViewComponent {
         /* EVENTS */
         submitButton.addEventListener('click',()=> {
             const data = this.#getDataFromInputs();
-            const errorsArr = this.sender(data);
+            const errorsArr = this.sender.sendRequest(data);
+
             if(errorsArr.length !== 0) {
                 /* creating view of error */
                 this.#showError(errorsArr);

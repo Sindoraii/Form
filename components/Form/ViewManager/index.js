@@ -1,13 +1,14 @@
 import EditView from "./EditView";
 import ReviewView from "./ReviewView";
 import NewView from "./NewView";
+import RequestManager from "../RequestManager";
 
 class ViewManager {
-    constructor(entity, isEdit, parent, sendRequest) {
+    constructor(entity, isEdit, parent) {
         this.entity = entity;
         this.isEdit = isEdit;
         this.parent = parent;
-        this.sendRequest = sendRequest;
+        this.requestManager = new RequestManager(this.updateViewMode.bind(this));
         this.currentView = null;
         this.mode = this.#calcMode();
     }
@@ -23,9 +24,12 @@ class ViewManager {
         }
     }
 
-    #updateViewMode(mode) {
+    updateViewMode(mode) {
         this.mode = mode;
-        this.currentView.unmount();
+
+        if(this.currentView !== null) {
+            this.currentView.unmount();
+        }
         this.#setCurrentView();
         this.currentView.mount(this.parent);
     }
@@ -33,13 +37,13 @@ class ViewManager {
     #setCurrentView() {
         switch (this.mode) {
             case 'new':
-                this.currentView = new NewView(this.sendRequest);
+                this.currentView = new NewView(this.requestManager);
                 break;
             case 'review':
-                this.currentView = new ReviewView(this.entity, this.#updateViewMode.bind(this, 'edit'));
+                this.currentView = new ReviewView(this.entity, this.updateViewMode.bind(this,'edit'));
                 break;
             case 'edit':
-                this.currentView = new EditView(this.entity, this.sendRequest);
+                this.currentView = new EditView(this.entity, this.requestManager);
                 break;
             default:
                 this.currentView = null;
