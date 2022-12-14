@@ -47,6 +47,7 @@ class ViewManager {
                 break;
             default:
                 this.currentView = null;
+                break;
         }
     }
 

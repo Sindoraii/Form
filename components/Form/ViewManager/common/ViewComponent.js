@@ -115,7 +115,7 @@ class ViewComponent {
         submitButton.setAttribute('type','submit');
 
         /* EVENTS */
-        submitButton.addEventListener('click',()=> {
+        this.elem.addEventListener('submit', ()=> {
             const data = this.#getDataFromInputs();
             const errorsArr = this.sender.sendRequest(data);
 

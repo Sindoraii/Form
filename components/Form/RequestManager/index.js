@@ -14,10 +14,9 @@ class RequestManager {
             const output = outputMapper(entity);
             const response = submitter(output);
 
-            response.then(()=>{
+            response.then( () => {
                 this.changeView('review');
             });
-
         }
             return errors;
     }
