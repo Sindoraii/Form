@@ -11,7 +11,6 @@ class ViewComponent {
         mainTitle.classList.add('form__title');
         mainTitle.innerHTML = 'Client form';
 
-
         /* FIELSETS */
         /* fieldset of contact information */
         const fielsetInfo = document.createElement('fieldset');
@@ -176,12 +175,11 @@ class ViewComponent {
         return {
             name: this.elem.querySelector('#name').value,
             surname: this.elem.querySelector('#surname').value,
-            /* fields for the next validation step*/
-            // email: this.elem.querySelector("#email").value,
-            // date: this.elem.querySelector("#dateOfBirth").value,
-            // card: this.elem.querySelector('#cardNumber').value,
-            // cardExpiration: this.elem.querySelector('#cardExpiration').value,
-            // cvc: this.elem.querySelector('#cardCvc').value,
+            email: this.elem.querySelector("#email").value,
+            dateOfBirth: this.elem.querySelector("#dateOfBirth").value,
+            cardNumber: this.elem.querySelector('#cardNumber').value,
+            cardExpiration: this.elem.querySelector('#cardExpiration').value,
+            cardCvc: this.elem.querySelector('#cardCvc').value,
         }
     }
 

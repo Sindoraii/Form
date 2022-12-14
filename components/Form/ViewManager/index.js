@@ -24,26 +24,26 @@ class ViewManager {
         }
     }
 
-    updateViewMode(mode) {
+    updateViewMode(mode,data = this.entity) {
         this.mode = mode;
 
         if(this.currentView !== null) {
             this.currentView.unmount();
         }
-        this.#setCurrentView();
+        this.#setCurrentView(data);
         this.currentView.mount(this.parent);
     }
 
-    #setCurrentView() {
+    #setCurrentView(data) {
         switch (this.mode) {
             case 'new':
                 this.currentView = new NewView(this.requestManager);
                 break;
             case 'review':
-                this.currentView = new ReviewView(this.entity, this.updateViewMode.bind(this,'edit'));
+                this.currentView = new ReviewView(data, this.updateViewMode.bind(this,'edit',data));
                 break;
             case 'edit':
-                this.currentView = new EditView(this.entity, this.requestManager);
+                this.currentView = new EditView(data, this.requestManager);
                 break;
             default:
                 this.currentView = null;
@@ -52,7 +52,7 @@ class ViewManager {
     }
 
     initView() {
-        this.#setCurrentView();
+        this.#setCurrentView(this.entity);
         if (this.currentView === null) {
             throw new Error('View is undefined');
         } else {

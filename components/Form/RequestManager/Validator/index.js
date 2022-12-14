@@ -18,7 +18,8 @@ class Validator {
                 addError(checkStringMinLength(fieldName,fieldValue,5),surnameErrors);
                 return  surnameErrors;
             default:
-                throw new Error("Field name is undefined");
+                // throw new Error("Field name is undefined");
+                return [] // the next feature: validation for the rest of fields todo
         }
 
         function addError(error,arr) {

@@ -15,7 +15,8 @@ class RequestManager {
             const response = submitter(output);
 
             response.then( () => {
-                this.changeView('review');
+                this.changeView('review',entity);
+
             });
         }
             return errors;
