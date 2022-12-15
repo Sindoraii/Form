@@ -1,4 +1,4 @@
-import {checkStringMinLength, checkStringWithoutNumbers} from "./validationRules/stringRules";
+import {checkEmail, checkStringMinLength, checkStringWithoutNumbers} from "./validationRules/stringRules";
 
 class Validator {
     constructor(entity) {
@@ -17,6 +17,10 @@ class Validator {
                 addError(checkStringWithoutNumbers(fieldName,fieldValue),surnameErrors);
                 addError(checkStringMinLength(fieldName,fieldValue,5),surnameErrors);
                 return  surnameErrors;
+            case 'email':
+                const emailErrors = [];
+                addError(checkEmail(fieldName,fieldValue),emailErrors)
+                return emailErrors;
             default:
                 // throw new Error("Field name is undefined");
                 return [] // the next feature: validation for the rest of fields todo

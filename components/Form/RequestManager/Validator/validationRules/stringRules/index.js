@@ -21,3 +21,16 @@ export function checkStringMinLength(fieldName,value, minLength) {
           return {};
      }
 }
+/* email validation */
+export function checkEmail(fieldName, value) {
+     let regExp = /[a-zA-Z0-9._-]+@[a-zA-Z]+\.[a-zA-Z]{2,6}/
+
+     if (regExp.test(value)) {
+          return {}
+     } else {
+          return {
+               field: fieldName,
+               message: 'Email is incorrect'
+          }
+     }
+}
