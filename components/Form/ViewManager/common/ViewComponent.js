@@ -37,6 +37,7 @@ class ViewComponent {
         nameInfoLabel.innerHTML = 'Name:'
         const nameInfo = document.createElement('input');
         nameInfo.setAttribute('type', 'text');
+        nameInfo.setAttribute('maxlength','1000');
         nameInfo.id = 'name';
 
         /* wrapper for surname info */
@@ -48,6 +49,7 @@ class ViewComponent {
         surnameInfoLabel.innerHTML = 'Surname:'
         const surnameInfo = document.createElement('input');
         surnameInfo.setAttribute('type', 'text');
+        surnameInfo.setAttribute('maxlength','1000');
         surnameInfo.id = 'surname';
 
         /* wrapper for email info */
@@ -59,6 +61,7 @@ class ViewComponent {
         emailInfoLabel.innerHTML = 'Email:'
         const emailInfo = document.createElement('input');
         emailInfo.setAttribute('type', 'email');
+        emailInfo.setAttribute('maxlength','320');
         emailInfo.id = 'email';
 
         /* wrapper for date of birth info */
@@ -70,6 +73,7 @@ class ViewComponent {
         dateOfBirthInfoLabel.innerHTML = 'Birthday:'
         const dateOfBirthInfo = document.createElement('input');
         dateOfBirthInfo.setAttribute('type', 'date');
+        dateOfBirthInfo.setAttribute('min', `${new Date().getFullYear() - 100}-01-01`);
         dateOfBirthInfo.id = 'dateOfBirth';
 
         /* card info*/
@@ -82,6 +86,7 @@ class ViewComponent {
         cardNumberInfoLabel.innerHTML = 'Card:';
         const cardNumberInfo = document.createElement('input');
         cardNumberInfo.setAttribute('type', 'text');
+        cardNumberInfo.setAttribute('maxlength','23');
         cardNumberInfo.id = 'cardNumber';
 
         /* wrapper for expiration card info */
@@ -93,7 +98,8 @@ class ViewComponent {
         cardExpirationInfoLabel.innerHTML = 'Expiration:';
         const cardExpirationInfo = document.createElement('input');
         cardExpirationInfo.setAttribute('type', 'month');
-        cardExpirationInfo.min = `${new Date().getFullYear()}-${new Date().getMonth()}`;
+        cardExpirationInfo.setAttribute('min',`${this.#setMinDate()}`);
+        cardExpirationInfo.setAttribute('max',`${this.#setMaxDate()}`);
         cardExpirationInfo.id = 'cardExpiration';
 
         /* wrapper for cvc of card info */
@@ -105,6 +111,8 @@ class ViewComponent {
         cardCvcInfoLabel.innerHTML = 'CVC:';
         const cardCvcInfo = document.createElement('input');
         cardCvcInfo.setAttribute('type', 'password');
+        cardCvcInfo.setAttribute('inputmode','numeric');
+        cardCvcInfo.setAttribute('maxlength','4');
         cardCvcInfo.id = 'cardCvc';
 
         /* BUTTON */
@@ -203,6 +211,30 @@ class ViewComponent {
                 wrapper.children[1].classList.remove('invalid');
             }
         })
+    }
+    #setMinDate() {
+        const year = new Date().getFullYear();
+        let month = new Date().getMonth() + 1;
+
+        if (month < 10) {
+            month = 0 + String(month);
+        }
+        const min = year + '-' + month;
+        return min;
+    }
+
+    #setMaxDate() {
+        const EXPIRATION = 5;
+        const year = new Date().getFullYear() + EXPIRATION;
+        let month = new Date().getMonth() + 1;
+
+        if (month < 10) {
+            month = 0 + String(month);
+        }
+
+        const max = year + '-' + month;
+        return max;
+
     }
 }
 export default ViewComponent;

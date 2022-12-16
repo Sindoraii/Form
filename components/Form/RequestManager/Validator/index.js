@@ -1,4 +1,10 @@
-import {checkEmail, checkStringMinLength, checkStringWithoutNumbers} from "./validationRules/stringRules";
+import {
+    checkEmail, checkMaxInputDate, checkMinInputDate, checkMinYear,
+    checkRequiredString,
+    checkStringMinLength,
+    checkStringWithoutNumbers
+} from "./validationRules/stringRules";
+import {checkNumbers, checkNumberWithWhiteSpace} from "./validationRules/numberRules";
 
 class Validator {
     constructor(entity) {
@@ -11,19 +17,39 @@ class Validator {
                 const nameErrors = [];
                 addError(checkStringWithoutNumbers(fieldName,fieldValue),nameErrors);
                 addError(checkStringMinLength(fieldName,fieldValue,4),nameErrors);
+                addError(checkRequiredString(fieldName,fieldValue),nameErrors);
                 return nameErrors;
             case 'surname':
                 const surnameErrors = [];
                 addError(checkStringWithoutNumbers(fieldName,fieldValue),surnameErrors);
                 addError(checkStringMinLength(fieldName,fieldValue,5),surnameErrors);
+                addError(checkRequiredString(fieldName,fieldValue),surnameErrors);
                 return  surnameErrors;
             case 'email':
                 const emailErrors = [];
-                addError(checkEmail(fieldName,fieldValue),emailErrors)
+                addError(checkEmail(fieldName,fieldValue),emailErrors);
+                addError(checkRequiredString(fieldName,fieldValue),emailErrors);
                 return emailErrors;
+            case 'dateOfBirth':
+                const dateErrors = [];
+                addError(checkMinYear(fieldName,fieldValue),dateErrors);
+                addError(checkRequiredString(fieldName,fieldValue),dateErrors);
+                return dateErrors;
+            case 'cardNumber':
+                const cardNumberErrors = [];
+                addError(checkNumberWithWhiteSpace(fieldName,fieldValue),cardNumberErrors);
+                return cardNumberErrors;
+            case 'cardExpiration':
+                const cardExpirationErrors = [];
+                addError(checkMinInputDate(fieldName,fieldValue),cardExpirationErrors);
+                addError(checkMaxInputDate(fieldName,fieldValue),cardExpirationErrors);
+                return cardExpirationErrors;
+            case 'cardCvc':
+                const cvcErrors = [];
+                addError(checkNumbers(fieldName,fieldValue),cvcErrors);
+                return cvcErrors;
             default:
-                // throw new Error("Field name is undefined");
-                return [] // the next feature: validation for the rest of fields todo
+                throw new Error("Field name is undefined");
         }
 
         function addError(error,arr) {
