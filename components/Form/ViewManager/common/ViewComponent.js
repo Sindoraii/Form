@@ -134,6 +134,25 @@ class ViewComponent {
             }
         })
 
+        cardNumberInfo.addEventListener('input',addWhiteSpace)
+
+        cardNumberInfo.addEventListener('keydown',(event)=> {
+            if(event.key === 'Backspace') {
+                cardNumberInfo.removeEventListener('input',addWhiteSpace)
+            }
+        })
+        cardNumberInfo.addEventListener('keyup',(event)=> {
+            if(event.key === 'Backspace') {
+                cardNumberInfo.addEventListener('input',addWhiteSpace)
+            }
+        })
+
+        function addWhiteSpace(event) {
+            if((event.target.value.length +1) % 5 === 0 && event.target.value.length !== 0) {
+                event.target.value = event.target.value + " ";
+            }
+        }
+
         /* append form title and contact info*/
         this.elem.append(mainTitle);
         this.elem.append(fielsetInfo);
