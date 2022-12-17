@@ -122,9 +122,12 @@ class ViewComponent {
         submitButton.setAttribute('type','submit');
 
         /* EVENTS */
-        this.elem.addEventListener('submit', ()=> {
+        this.elem.addEventListener('submit', (event)=> {
+            event.preventDefault();
             const data = this.#getDataFromInputs();
             const errorsArr = this.sender.sendRequest(data);
+            this.#deleteErrors();
+
 
             if(errorsArr.length !== 0) {
                 /* creating view of error */

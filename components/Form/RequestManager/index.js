@@ -13,7 +13,6 @@ class RequestManager {
         if(errors.length === 0) {
             const output = outputMapper(entity);
             const response = submitter(output);
-
             response.then( () => {
                 this.changeView('review',entity);
 
