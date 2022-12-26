@@ -1,5 +1,6 @@
 /* import */
-import Form from "./src/components/Form/index.js";
+import "./styles.css";
+import Form from "./components/Form";
 
 const root = document.getElementById('root');
 
