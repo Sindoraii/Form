@@ -1,5 +1,5 @@
 /* import */
-import Form from "./components/Form/index.js";
+import Form from "./src/components/Form/index.js";
 
 const root = document.getElementById('root');
 
